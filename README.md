@@ -7,7 +7,7 @@ A Magento module allowing users to quickly search for specific configuration fie
 
 The system configuration search enhances the Admin Console UI and allows you to search for specific configuration fields
 
-Original Post: http://alanstorm.com/magento_configuration_search
+Original Blog Post: http://alanstorm.com/magento_configuration_search
 
 ###Build Instructions
 
