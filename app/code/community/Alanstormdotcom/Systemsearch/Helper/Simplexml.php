@@ -11,12 +11,12 @@
 * 
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 class Alanstormdotcom_Systemsearch_Helper_Simplexml extends Mage_Core_Helper_Abstract
 {
     public function switchFromCommentToLabel($node)		
     {
-        if($node->getName() != 'comment')
-        {
+        if ($node->getName() != 'comment') {
             return $node;
         }
         $nodes = $node->xpath('../label');
@@ -27,14 +27,13 @@ class Alanstormdotcom_Systemsearch_Helper_Simplexml extends Mage_Core_Helper_Abs
     public function getPathExpression($node)
     {
         $reverse = $this->getReversePathExpression($node);
-        return implode('/',array_reverse(explode('/', $reverse)));
+        return implode('/', array_reverse(explode('/', $reverse)));
     }
     
     public function getParentNode($node)
     {
         $nodes = $node->xpath('..');
-        if(count($nodes) > 0)
-        {
+        if(count($nodes) > 0) {
             return $nodes[0];
         }		
         return false;
@@ -43,13 +42,11 @@ class Alanstormdotcom_Systemsearch_Helper_Simplexml extends Mage_Core_Helper_Abs
     public function getReversePathExpression($node,$fragment='')
     {
         $parent = $this->getParentNode($node);
-        if($parent)
-        {
+        if($parent) {
             //recursion, HO!
             $fragment .= $parent->getName() . '/';
             return $this->getReversePathExpression($parent, $fragment);
-        }		
+        }
         return $fragment;
     }
-    
 }

@@ -11,23 +11,22 @@
 * 
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 class Alanstormdotcom_Systemsearch_Helper_Data extends Mage_Core_Helper_Abstract
-{	
+{
     public function reverseTranslate($word)
     {
         $translated = $this->__($word);
-        $reverse_legend = array_flip(Mage::app()->getTranslator()->getData());			
-        if(array_key_exists($translated, $reverse_legend))
-        {
+        $reverse_legend = array_flip(Mage::app()->getTranslator()->getData());
+        if(array_key_exists($translated, $reverse_legend)) {
             return $reverse_legend[$translated];
         }
         return $word;
-    }	
+    }
     
     public function isModuleOutputEnabled($moduleName = null)
     {
-        if(is_callable(array(Mage::helper('core'),'isModuleOutputEnabled')))
-        {
+        if(is_callable(array(Mage::helper('core'), 'isModuleOutputEnabled'))) {
             return parent::isModuleOutputEnabled();
         }
         
@@ -38,6 +37,5 @@ class Alanstormdotcom_Systemsearch_Helper_Data extends Mage_Core_Helper_Abstract
             return false;
         }
         return true;
-    }		
+    }
 }
-

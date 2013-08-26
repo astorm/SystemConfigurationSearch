@@ -11,16 +11,18 @@
 * 
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 class Alanstormdotcom_Systemsearch_Block_Searchresults extends Alanstormdotcom_Systemsearch_Block_Template
 {
     protected $_resultsArray;
-    
+
     const ARROW_SEP =  ' <span style="font-family:fixed">-&gt;</span> ';
+
     public function __construct()
     {
         $this->setTemplate('results.phtml');
     }
-    
+
     public function addResultsArray($array)
     {
         $array = array_unique($array);
@@ -28,19 +30,19 @@ class Alanstormdotcom_Systemsearch_Block_Searchresults extends Alanstormdotcom_S
         $this->assignResultsArray($array);			
         return $this;
     }
-    
+
     protected function assignResultsArray($array)
     {
         $this->_resultsArray = $array;
     }
-    
+
     protected function fetchResultsArray()
     {
         return $this->_resultsArray;
     }
-    
+
     protected function fetchStyledResultsArray()
     {
-        return str_replace('/',self::ARROW_SEP,$this->fetchResultsArray());			
+        return str_replace('/', self::ARROW_SEP,$this->fetchResultsArray());
     }
 }
