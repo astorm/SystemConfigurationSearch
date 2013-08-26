@@ -11,36 +11,36 @@
 * 
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-class Alanstormdotcom_Systemsearch_Block_Searchresults extends Alanstormdotcom_Systemsearch_Block_Template
+
+class Alanstormdotcom_Systemsearch_Block_Template extends Mage_Core_Block_Template
 {
-    protected $_resultsArray;
-    
-    const ARROW_SEP =  ' <span style="font-family:fixed">-&gt;</span> ';
-    public function __construct()
+    protected function _checkValidScriptPath($scriptPath)
     {
-        $this->setTemplate('results.phtml');
+        $paths_to_check = array(Mage::getBaseDir('design'), Mage::getModuleDir('', 'Alanstormdotcom_Systemsearch'));
+        $valid = false;
+        foreach($paths_to_check as $path) {
+            if(strpos($scriptPath, realpath($path)) === 0) {
+                $valid = true;
+            }
+        }
+        return $valid;
     }
-    
-    public function addResultsArray($array)
+
+    public function setScriptPath($dir)
     {
-        $array = array_unique($array);
-        sort($array);
-        $this->assignResultsArray($array);			
+        $scriptPath = realpath($dir);
+        if ($this->_checkValidScriptPath($scriptPath)) {
+            $this->_viewDir = $dir;
+        } else {
+            Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, null, true);
+        }
         return $this;
     }
-    
-    protected function assignResultsArray($array)
+
+    public function fetchView($fileName)
     {
-        $this->_resultsArray = $array;
-    }
-    
-    protected function fetchResultsArray()
-    {
-        return $this->_resultsArray;
-    }
-    
-    protected function fetchStyledResultsArray()
-    {
-        return str_replace('/',self::ARROW_SEP,$this->fetchResultsArray());			
+        //ignores file name, just uses a simple include with template name
+        $this->setScriptPath(Mage::getConfig()->getModuleDir('', 'Alanstormdotcom_Systemsearch') . '/phtml');
+        return parent::fetchView($this->getTemplate());
     }
 }

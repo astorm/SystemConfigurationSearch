@@ -11,27 +11,31 @@
 * 
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-class Alanstormdotcom_Systemsearch_Adminhtml_AlanstormdotcomsystemsearchController extends Mage_Adminhtml_Controller_Action {        	
-	protected $_publicActions = array('index');
-	public function indexAction()
-	{
-		$url = Mage::getModel('adminhtml/url')->getUrl('*/alanstormdotcomsystemsearch/searchForConfig');
-		
-		var_dump($url);
-// 		var_d
-		var_dump(Mage::app()->getLocale()->getLocaleCode());
-	}
-	
-	public function searchForConfigAction()
-	{
-		
-		$terms = $this->getRequest()->getParam('search_terms');
-		
-		$nodes = Mage::getModel('alanstormdotcomsystemsearch/configsearch')
-		->searchSystemConfigForTerms($terms);		
-		
-		Mage::helper('alanstormdotcomsystemsearch/jsonconfigsearch')
-		->prepareAndSendResponse($nodes, $terms);
-	}	
+
+class Alanstormdotcom_Systemsearch_Helper_Data extends Mage_Core_Helper_Abstract
+{
+    public function reverseTranslate($word)
+    {
+        $translated = $this->__($word);
+        $reverse_legend = array_flip(Mage::app()->getTranslator()->getData());
+        if(array_key_exists($translated, $reverse_legend)) {
+            return $reverse_legend[$translated];
+        }
+        return $word;
+    }
+    
+    public function isModuleOutputEnabled($moduleName = null)
+    {
+        if(is_callable(array(Mage::helper('core'), 'isModuleOutputEnabled'))) {
+            return parent::isModuleOutputEnabled();
+        }
+
+        if ($moduleName === null) {
+            $moduleName = $this->_getModuleName();
+        }
+        if (Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName)) {
+            return false;
+        }
+        return true;
+    }
 }
-	    
