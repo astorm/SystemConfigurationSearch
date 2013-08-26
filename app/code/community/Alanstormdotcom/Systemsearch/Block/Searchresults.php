@@ -27,7 +27,7 @@ class Alanstormdotcom_Systemsearch_Block_Searchresults extends Alanstormdotcom_S
     {
         $array = array_unique($array);
         sort($array);
-        $this->assignResultsArray($array);			
+        $this->assignResultsArray($array);
         return $this;
     }
 

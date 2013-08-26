@@ -89,7 +89,7 @@ class Alanstormdotcom_Systemsearch_Helper_Jsonconfigsearch extends Mage_Core_Hel
                     $result->type           = $type;
                     $response->results[]    = $result;
 
-                    $response->responseText[] = 'Configuration/' . 
+                    $response->responseText[] = 'Configuration/' .
                     $label_nav .
                     '/' .
                     $label_group .

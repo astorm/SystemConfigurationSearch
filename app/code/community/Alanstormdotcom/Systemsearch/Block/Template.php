@@ -23,7 +23,7 @@ class Alanstormdotcom_Systemsearch_Block_Template extends Mage_Core_Block_Templa
                 $valid = true;
             }
         }
-        return $valid;		
+        return $valid;
     }
 
     public function setScriptPath($dir)

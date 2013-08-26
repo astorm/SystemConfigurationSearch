@@ -11,6 +11,7 @@
 * 
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 class Alanstormdotcom_Systemsearch_Model_Observer
 {
     public function addSystemsearchInit($observer)
@@ -33,8 +34,7 @@ class Alanstormdotcom_Systemsearch_Model_Observer
             str_replace('</body>', $block . '</body>', $response->getBody(false))
         );
 
-        if($this->isSystemConfigPage() && stripos($response->getBody(false), '<html') !== false)
-        {
+        if ($this->isSystemConfigPage() && stripos($response->getBody(false), '<html') !== false) {
             $block = $this->getLayout()->createBlock('alanstormdotcomsystemsearch/template')
                 ->setTemplate('searchform.phtml')->toHtml();
             $response->setBody(

@@ -29,7 +29,7 @@ class Alanstormdotcom_Systemsearch_Helper_Data extends Mage_Core_Helper_Abstract
         if(is_callable(array(Mage::helper('core'), 'isModuleOutputEnabled'))) {
             return parent::isModuleOutputEnabled();
         }
-        
+
         if ($moduleName === null) {
             $moduleName = $this->_getModuleName();
         }

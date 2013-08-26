@@ -11,8 +11,15 @@
 * 
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 class Alanstormdotcom_Systemsearch_Model_Configsearch
 {
+    const TYPE_SYSTEM_CONFIG_UNKNOWN    = 'UNKNOWN';
+    const TYPE_SYSTEM_CONFIG_TAB        = 'TAB';
+    const TYPE_SYSTEM_CONFIG_SECTION    = 'SECTION';
+    const TYPE_SYSTEM_CONFIG_GROUP      = 'GROUP';
+    const TYPE_SYSTEM_CONFIG_FIELD      = 'FIELD';
+
     public function searchSystemConfigForTerms($terms)
     {
         return $this->xPathTextSearch($terms);
@@ -24,7 +31,7 @@ class Alanstormdotcom_Systemsearch_Model_Configsearch
         $sections = Mage::getConfig()
             ->loadModulesConfiguration('system.xml')
             ->getNode('sections');
-        
+
         $nodes = $this->getNodesWithText($search_for, $sections);
         $nodes_by_type = array();
         foreach ($nodes as $node) {
@@ -32,26 +39,21 @@ class Alanstormdotcom_Systemsearch_Model_Configsearch
             $nodes_by_type[$type] = array_key_exists($type, $nodes_by_type) ? $nodes_by_type[$type] : array();
             $nodes_by_type[$type][] = $node;
         }
-        
+
         return $nodes_by_type;
     }
 
-    const TYPE_SYSTEM_CONFIG_UNKNOWN    = 'UNKNOWN';
-    const TYPE_SYSTEM_CONFIG_TAB        = 'TAB';
-    const TYPE_SYSTEM_CONFIG_SECTION    = 'SECTION';
-    const TYPE_SYSTEM_CONFIG_GROUP      = 'GROUP';
-    const TYPE_SYSTEM_CONFIG_FIELD      = 'FIELD';
     protected function getTypeOfSystemConfigNode($node)
     {
         $path = $this->fetchSimpleXmlHelper()->getPathExpression($node);
         // var_dump($path);
-        
+
         $parts = explode('/',$path);
         // var_dump($parts);
-        
+
         $parent_name = $parts[count($parts) - 2];
         // var_dump($parent_name);
-        
+
         switch ($parent_name)
         {
             case 'sections':
@@ -73,11 +75,11 @@ class Alanstormdotcom_Systemsearch_Model_Configsearch
         // only works with us_EN, bad americano!
         // $nodes = array_merge($nodes, $this->getSpecificNodeWithText('label',$search_for, $xml));
         // $nodes = array_merge($nodes, $this->getSpecificNodeWithText('comment',$search_for, $xml));
-        
+
         //get the nodes
         $nodes = array_merge($nodes,$xml->xpath('//label'));
         $nodes = array_merge($nodes,$xml->xpath('//comment'));
-        
+
         //filter the nodes 
         $found = array();
         $helper = Mage::helper('adminhtml');
@@ -89,7 +91,7 @@ class Alanstormdotcom_Systemsearch_Model_Configsearch
 
         return $found;
     }
-    
+
     protected function getSpecificNodeWithText($node_name, $search_for, $xml)
     {
         $expression = $this->createXpathQuery($node_name, $search_for);
@@ -110,8 +112,8 @@ class Alanstormdotcom_Systemsearch_Model_Configsearch
     {
         $sections = Mage::getConfig()
         ->loadModulesConfiguration('system.xml')
-        ->getNode('sections');        
-        
+        ->getNode('sections');
+
         $sections = $sections->xpath('//sections');
         $sections = $sections[0];
 
