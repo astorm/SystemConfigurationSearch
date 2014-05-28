@@ -1,0 +1,21 @@
+{
+    "name": "pulsestorm/system-search-config",
+    "type": "magento-module",
+    "description": "System Search Config.",
+    "version": "0.1.0",
+    "keywords":["magento","search","config"],
+    "homepage":"https://github.com/astorm/SystemConfigurationSearch.git",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alan Storm",
+            "email": "astorm@pulsestorm.net",
+            "homepage": "http://alanstorm.com",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.2.0",
+        "magento-hackathon/magento-composer-installer":"*"
+    }
+}
