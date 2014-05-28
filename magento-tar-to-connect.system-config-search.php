@@ -2,9 +2,9 @@
 return array(
 'base_dir'           => '/fakehome/Documents/github/MagentoBetter404/var/build',
 'archive_files'      => 'System_Config_Search.tar',
-'extension_name'     => 'System_Config_Search',
+'extension_name'     => 'System_Configuration_Search',
 'extension_version'  => '0.7.0',
-'archive_connect'    => 'System_Config_Search-0.1.0.tgz',
+'archive_connect'    => 'System_Configuration_Search-0.1.0.tgz',
 'path_output'        => '/fakehome/Pulsestorm/var/build-connect',
 
 
